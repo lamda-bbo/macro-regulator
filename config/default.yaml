@@ -1,0 +1,62 @@
+name : test
+
+seed : 3
+gpu : 0
+use_cuda : True
+
+# PPO parameters
+clip_param : 0.2
+max_grad_norm : 0.5
+ppo_epoch : 10
+gamma : 0.95
+lr : 2.5e-3
+
+# canvas config
+grid : 224
+
+# benchmark
+benchmark_train : [superblue1]
+benchmark_eval : [superblue1]
+
+# training episode
+episode : 1500
+
+# training epoch
+epoch : 10
+
+# buffer size
+buffer_size : 10 # number of trajectory
+
+# training batch size
+batch_size : 64
+
+# masking action soft coefficient
+soft_coefficient : 1
+
+# interval
+log_interval : 25
+test_interval : 25
+save_model : True
+
+# dmp
+n_dmp_eval : 3
+
+# control wire and regular
+wire_coeff : 0.7
+
+# grid soft
+grid_soft_coeff : 4
+
+# reward scaling
+use_reward_scaling : True
+
+# n macro
+n_macro : 512
+
+# policy eval
+eval_policy : False
+
+# read def from dataset
+dataset_path : None
+
+disable_tqdm : True
