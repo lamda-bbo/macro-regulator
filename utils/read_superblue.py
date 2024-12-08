@@ -171,7 +171,7 @@ class EntryFormatWithRuleGroups(EntryFormat):
     
 def read_benchmark(database, benchmark, args=None):
     print("read database from benchmark %s" % (benchmark))
-    database["benchmark_dir"] = os.path.join(os.path.dirname(os.path.abspath('.')), f'benchmark/{benchmark}')
+    database["benchmark_dir"] = benchmark
     return read_benchmark_from_def(database, os.path.join(database["benchmark_dir"], f'{benchmark}.def'), args)
 
 def read_benchmark_from_def(database, benchmark, args=None):
@@ -399,7 +399,7 @@ def read_lef(database, lef_file):
         ]
     )
 
-    assert lef_file is not None and os.path.exists(lef_file)
+    assert lef_file is not None and os.path.exists(lef_file), lef_file
     database["lef_macros"] = {}
     database["lef_origin"] = [""]
     database["macro_size"] = {}

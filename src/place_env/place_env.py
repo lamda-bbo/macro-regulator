@@ -46,12 +46,21 @@ class PlaceEnv(gym.Env):
         self.test_mode = False
 
   
-        self.macro_placement_path = f'../macro_placement/{self.args.name}/{self.args.unique_token}' 
-        self.dmp_temp_placement_path = f'../dmp_temp_placement/{self.args.name}/{self.args.unique_token}'
-        self.reference_placement_path = f'../results/reference_placement/{self.args.name}/{self.args.unique_token}'
+        self.macro_placement_path = os.path.join(args.ROOT_DIR , "macro_placement", f'{self.args.name}/{self.args.unique_token}') 
+        self.dmp_temp_placement_path = os.path.join(args.ROOT_DIR, "dmp_temp_placement", f'{self.args.name}/{self.args.unique_token}')
+
+        self.result_path = args.RESULT_DIR
+        self.reference_placement_path = os.path.join(self.result_path, "reference_placement", f'{self.args.name}/{self.args.unique_token}')
+        self.dmp_result_path = os.path.join(self.result_path, "dmp_results", f'{self.args.name}/{self.args.unique_token}')
+        self.full_figure_path = os.path.join(self.result_path, "full_figures", f'{self.args.name}/{self.args.unique_token}')
+        self.n_dmp_eval_path = os.path.join(self.result_path, "n_dmp_eval", f'{self.args.name}/{self.args.unique_token}')
+
         os.makedirs(self.macro_placement_path, exist_ok=True)
         os.makedirs(self.dmp_temp_placement_path, exist_ok=True)
         os.makedirs(self.reference_placement_path, exist_ok=True)
+        os.makedirs(self.dmp_result_path, exist_ok=True)
+        os.makedirs(self.full_figure_path, exist_ok=True)
+        os.makedirs(self.n_dmp_eval_path, exist_ok=True)
 
         for problem in self.problem_train:
             problem.init_dmp(macro_placement_path = self.macro_placement_path)
@@ -326,18 +335,19 @@ class PlaceEnv(gym.Env):
                     if metric.hpwl < min_global_hpwl:
                         min_global_hpwl = metric.hpwl
                         min_call_id = call_id
-
-                os.makedirs(f"../results/dmp_results/{self.args.name}/{self.args.unique_token}/{self.problem.benchmark}", exist_ok=True)
-                os.makedirs(f"../results/full_figures/{self.args.name}/{self.args.unique_token}/{self.problem.benchmark}", exist_ok=True)
+                os.makedirs(os.path.join(self.dmp_result_path, f"{self.args.name}/{self.args.unique_token}/{self.problem.benchmark}"),
+                            exist_ok=True)
+                os.makedirs(os.path.join(self.full_figure_path, f"{self.args.name}/{self.args.unique_token}/{self.problem.benchmark}"), 
+                            exist_ok=True)
                 os.system(f'cp {os.path.join(self.dmp_temp_placement_path, self.problem.benchmark, f"{min_call_id}.def")}'+\
-                            f' {f"../results/dmp_results/{self.args.name}/{self.args.unique_token}/{self.problem.benchmark}/{self.args.i_episode}_{self.args.t_env}_{min_global_hpwl/1e7:.4f}.def"}')
+                            f' {os.path.join(self.dmp_result_path, f"{self.args.name}/{self.args.unique_token}/{self.problem.benchmark}/{self.args.i_episode}_{self.args.t_env}_{min_global_hpwl/1e7:.4f}.def")}')
                 os.system(f'cp {os.path.join(self.dmp_temp_placement_path, self.problem.benchmark, f"{min_call_id}.png")}'+\
-                            f' {f"../results/full_figures/{self.args.name}/{self.args.unique_token}/{self.problem.benchmark}/{self.args.i_episode}_{self.args.t_env}_{min_global_hpwl/1e7:.4f}.png"}')
+                            f' {os.path.join(self.full_figure_path, f"{self.args.name}/{self.args.unique_token}/{self.problem.benchmark}/{self.args.i_episode}_{self.args.t_env}_{min_global_hpwl/1e7:.4f}.png")}')
                 
-                self.flip_dmp_figure(figure_path=f"../results/full_figures/{self.args.name}/{self.args.unique_token}/{self.problem.benchmark}/{self.args.i_episode}_{self.args.t_env}_{min_global_hpwl/1e7:.4f}.png")
+                self.flip_dmp_figure(figure_path=os.path.join(self.full_figure_path, f"{self.args.name}/{self.args.unique_token}/{self.problem.benchmark}/{self.args.i_episode}_{self.args.t_env}_{min_global_hpwl/1e7:.4f}.png"))
 
-                os.makedirs(f"../results/n_dmp_eval/{self.args.name}/{self.args.unique_token}", exist_ok=True)
-                n_dmp_eval_file_path = f"../results/n_dmp_eval/{self.args.name}/{self.args.unique_token}/{self.problem.benchmark}.txt"
+                os.makedirs(os.path.join(self.n_dmp_eval_path, f"{self.args.name}/{self.args.unique_token}"), exist_ok=True)
+                n_dmp_eval_file_path = os.path.join(self.n_dmp_eval_path, f"{self.args.name}/{self.args.unique_token}/{self.problem.benchmark}.txt")
                 if not os.path.exists(n_dmp_eval_file_path):
                     with open(n_dmp_eval_file_path, 'a') as f:
                         header = ""

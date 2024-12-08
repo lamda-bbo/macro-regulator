@@ -10,14 +10,18 @@ class DMPcaller:
         self.args = args
 
         json_file = os.path.join(
-            '../config/dmp_json',
+            args.CONFIG_DIR, 
+            'dmp_json',
             f'{benchmark}.json'
         )
         self.params = Params.Params()
         self.params.load(json_file)
 
+
         self.def_input_path = os.path.join(macro_placement_path, f"{benchmark}.def")
         self.params.def_input = self.def_input_path
+        self.params.lef_input = os.path.join(args.BENCHMARK_DIR, benchmark, f"{benchmark}.lef")
+        self.params.verilog_input = os.path.join(args.BENCHMARK_DIR, benchmark, f"{benchmark}.v")
             
         self.params.gpu = 0 if args.device == 'cpu' else 1
         self.params.global_place_flag = 1
