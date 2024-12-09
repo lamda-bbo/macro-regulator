@@ -15,9 +15,10 @@ SRC_DIR = os.path.join(ROOT_DIR, "src")
 RESULT_DIR = os.path.join(ROOT_DIR, "results")
 CONFIG_DIR = os.path.join(ROOT_DIR, "config")
 UTILS_DIR = os.path.join(ROOT_DIR, "utils")
-DREAMPLACE_DIR = os.path.join(ROOT_DIR, "DREAMPlace", "dreamplace")
+DREAMPLACE_PARENT_DIR = os.path.join(ROOT_DIR, "DREAMPlace")
+DREAMPLACE_DIR = os.path.join(DREAMPLACE_PARENT_DIR, "dreamplace")
 sys.path.extend(
-    [ROOT_DIR, BENCHMARK_DIR, SRC_DIR, RESULT_DIR, CONFIG_DIR, UTILS_DIR, DREAMPLACE_DIR]
+    [ROOT_DIR, BENCHMARK_DIR, SRC_DIR, RESULT_DIR, CONFIG_DIR, UTILS_DIR, DREAMPLACE_PARENT_DIR, DREAMPLACE_DIR]
 )
 
 from collections import namedtuple
