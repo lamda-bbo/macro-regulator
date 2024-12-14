@@ -29,12 +29,20 @@ This repository contains the Python code for MaskRegulate, a reinforcement learn
 + `utils` defines some functions to be used for optimization.
   
 ## Usage
-Please first build the environment according to the requirements and download the ICCAD2015 benchmark via [Google Drive](https://drive.google.com/file/d/1JEC17FmL2cM8BEAewENvRyG6aWxH53mX/view?usp=sharing).
+Please first build the environment according to the requirements or download the docker image from [Baidu Netdisk](https://pan.baidu.com/s/1GAu1-RVA5IYHd1LjyL2Xww?pwd=syur) and download the ICCAD2015 benchmark via [Google Drive](https://drive.google.com/file/d/1JEC17FmL2cM8BEAewENvRyG6aWxH53mX/view?usp=sharing).
 
-
-Then navigate to the `src` directory.
+### Using Docker
+After downloading the docker image `macro-regulator.tar`, please execute the following commands:
 ```shell
-cd src
+# load our docker image
+docker load --input macro-regulator.tar
+
+# find our docker image and rename it
+docker image
+docker tag <IMAGE ID> <Your Name>/macro-regulator:latest
+
+# run a docker container
+docker run --gpus all -it -v $(pwd):/workspace <Your Name>/macro-regulator:latest bash
 ```
 
 ### Parameters
@@ -46,6 +54,7 @@ cd src
 + `--dataset_path` the placement file to regulate. MaskRegulate will improve the chip layout obtained from [DREAMPlace](<https://github.com/limbo018/DREAMPlace>) if `--dataset_path` is not provided. Currently, MaskRegulate only supports training on a single benchmark when a `--dataset_path` is provided (i.e., if `superblue1_reference.def` is given, please set `--benchmark_train=[superblue1]` and `--dataset_path=./superblue1_reference.def`).
 
 ### Run a training task
+Please first navigate to the `src` directory.
 ```
 python main.py --benchmark_train=[Benchmark1,Benchmark2] --benchmark_eval=[Benchmark1',Benchmark2']
 ```
