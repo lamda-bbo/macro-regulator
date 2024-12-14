@@ -8,6 +8,19 @@ import yaml
 import gym
 import place_env
 
+import sys
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BENCHMARK_DIR = os.path.join(ROOT_DIR, "benchmark")
+SRC_DIR = os.path.join(ROOT_DIR, "src")
+RESULT_DIR = os.path.join(ROOT_DIR, "results")
+CONFIG_DIR = os.path.join(ROOT_DIR, "config")
+UTILS_DIR = os.path.join(ROOT_DIR, "utils")
+DREAMPLACE_PARENT_DIR = os.path.join(ROOT_DIR, "DREAMPlace")
+DREAMPLACE_DIR = os.path.join(DREAMPLACE_PARENT_DIR, "dreamplace")
+sys.path.extend(
+    [ROOT_DIR, BENCHMARK_DIR, SRC_DIR, RESULT_DIR, CONFIG_DIR, UTILS_DIR, DREAMPLACE_PARENT_DIR, DREAMPLACE_DIR]
+)
+
 from collections import namedtuple
 from types import SimpleNamespace
 from place_db import PlaceDB
@@ -16,8 +29,6 @@ from logger import Logger
 from utils.comp_res import comp_res
 from utils.constant import INF
 
-import sys
-sys.path.append('..')
 
 from utils.debug import *
 
@@ -43,7 +54,7 @@ def process_args():
             cmd_config_dict[key] = benchmark_lst
 
     # default config
-    config_path = "../config/default.yaml"
+    config_path = os.path.join(CONFIG_DIR, "default.yaml")
     with open(config_path, 'r') as f:
         config_dict = yaml.load(f, Loader=yaml.FullLoader)
     
@@ -69,6 +80,14 @@ def process_args():
     args.unique_token = unique_token
 
     assert args.grid % 32 == 0, 'grid should be a multiple of 32'
+
+    setattr(args, "ROOT_DIR", ROOT_DIR)
+    setattr(args, "BENCHMARK_DIR", BENCHMARK_DIR)
+    setattr(args, "SRC_DIR", SRC_DIR)
+    setattr(args, "RESULT_DIR", RESULT_DIR)
+    setattr(args, "CONFIG_DIR", CONFIG_DIR)
+    setattr(args, "UTILS_DIR", UTILS_DIR)
+    setattr(args, "DREAMPLACE_DIR", DREAMPLACE_DIR)
     return args
 
 def seed_torch(seed):
@@ -97,7 +116,6 @@ def main():
     agent = PPOAgent(args=args)
 
     seed_torch(args.seed)
-
     if hasattr(args, 'check_point_path') and len(args.check_point_path) > 0:
         agent.load_model(args.check_point_path)
         print('successfully load model')
@@ -119,8 +137,8 @@ def main():
                                                    ratio_y=env.ratio_y, 
                                                    grid=env.place_grid)
                 content += f'benchmark: {benchmark}\tour_gp_hpwl: {reward_info["global_hpwl"]}\tour_regularity: {our_regularity}\n'
-                
-                hpwl_path = f'../results/hpwl/{args.name}/{args.unique_token}'
+
+                hpwl_path = os.path.join(args.RESULT_DIR, "hpwl", f'{args.name}/{args.unique_token}')
                 os.makedirs(hpwl_path, exist_ok=True)
                 hpwl_file_name = f'{benchmark}.txt'
                 save_eval_metrics(os.path.join(hpwl_path, hpwl_file_name),
@@ -220,7 +238,7 @@ def main():
                     if args.save_model:
                         agent.save_model(gp_hpwl_min[benchmark], benchmark=benchmark)
                 
-                hpwl_path = f'../results/hpwl/{args.name}/{args.unique_token}'
+                hpwl_path = os.path.join(args.RESULT_DIR, "hpwl", f'{args.name}/{args.unique_token}')
                 os.makedirs(hpwl_path, exist_ok=True)
                 hpwl_file_name = f'{benchmark}.txt'
                 save_eval_metrics(os.path.join(hpwl_path, hpwl_file_name),

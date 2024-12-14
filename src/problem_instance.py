@@ -11,11 +11,10 @@ from itertools import combinations
 class ProblemInstance():
     def __init__(self, args, benchmark):
         self.benchmark = benchmark
-        benchmark_path = "../benchmark"
         self.args = args
 
         self.database = {}
-        placedb_info = read_superblue(database=self.database, benchmark=os.path.join(benchmark_path, benchmark), args=args)
+        placedb_info = read_superblue(database=self.database, benchmark=os.path.join(args.BENCHMARK_DIR, benchmark), args=args)
         self.node_info = placedb_info["node_info"]
         self.node_info_raw_id_name = placedb_info["node_info_raw_id_name"]
         self.node_cnt = placedb_info["node_cnt"]

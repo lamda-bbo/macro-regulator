@@ -29,10 +29,11 @@ This repository contains the Python code for MaskRegulate, a reinforcement learn
 + `utils` defines some functions to be used for optimization.
   
 ## Usage
-Please first build the environment according to the requirements and download the ICCAD2015 benchmark.
+Please first build the environment according to the requirements and download the ICCAD2015 benchmark via [Google Drive](https://drive.google.com/file/d/1JEC17FmL2cM8BEAewENvRyG6aWxH53mX/view?usp=sharing).
+
 
 Then navigate to the `src` directory.
-```
+```shell
 cd src
 ```
 
