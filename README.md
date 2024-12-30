@@ -70,6 +70,18 @@ Script `run_train.sh` is provided for a quick start.
 ### Run a testing task
 We also provide a pre-trained model trained on `superblue1`, `superblue3`, `superblue4` and `superblue5` in `policy/pretrained_model.pkl`, which can be loaded and evaluated. For example, run the following command to test our policy on superblue1:
 ```
+
+
+## Citation
+```
+@inproceedings{macro-regulator,
+    author = {Ke Xue, Ruo-Tong Chen, Xi Lin, Yunqi Shi, Shixiong Kai, Siyuan Xu, Chao Qian.},
+    title = {Reinforcement Learning Policy as Macro Regulator Rather than Macro Placer},
+    booktitle = {Advances in Neural Information Processing Systems 38 (NeurIPS’24)},
+    year = {2024},
+    address={Vancouver, Canada}
+}
+```
 python main.py --benchmark_train=[] --benchmark_eval=[superblue1] --check_point_path=../policy/pretrained_model.pkl --eval_policy=True
 ```
 Script `run_test.sh` is provided for a quick start.
