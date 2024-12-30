@@ -72,7 +72,7 @@ We also provide a pre-trained model trained on `superblue1`, `superblue3`, `supe
 ```
 python main.py --benchmark_train=[] --benchmark_eval=[superblue1] --check_point_path=../policy/pretrained_model.pkl --eval_policy=True
 ```
-
+Script `run_test.sh` is provided for a quick start.
 
 
 ## Citation
@@ -85,4 +85,4 @@ python main.py --benchmark_train=[] --benchmark_eval=[superblue1] --check_point_
     address={Vancouver, Canada}
 }
 ```
-Script `run_test.sh` is provided for a quick start.
+
