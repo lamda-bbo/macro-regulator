@@ -82,6 +82,7 @@ Script `run_test.sh` is provided for a quick start.
     title = {Reinforcement Learning Policy as Macro Regulator Rather than Macro Placer},
     booktitle = {Advances in Neural Information Processing Systems 38 (NeurIPS’24)},
     year = {2024},
+    pages = {140565--140588},
     address={Vancouver, Canada}
 }
 ```
