@@ -23,27 +23,22 @@ This repository contains the Python code for MaskRegulate, a reinforcement learn
 
 + `benchmark` directory stores the benchmarks for running. Please download the ICCAD2015 benchmark and move it to `benchmark/` (i.e., `benchmark/superblue1`).
 + `config` stores the hyperparameters for our algorithm.
-+ `DREAMPlace` serves as a thirdparty standard cell placer borrowed from [DREAMPlace](<https://github.com/limbo018/DREAMPlace>).
++ `DREAMPlace_source` serves as a thirdparty standard cell placer borrowed from [DREAMPlace](<https://github.com/limbo018/DREAMPlace>).
 + `policy` stores a pretrained policy trained on `superblue1`, `superblue3`, `superblue4` and `superblue5`.
 + `src` contains the source code of MaskRegulate.
 + `utils` defines some functions to be used for optimization.
   
 ## Usage
-Please first build the environment according to the requirements or download the docker image from [Baidu Netdisk](https://pan.baidu.com/s/1GAu1-RVA5IYHd1LjyL2Xww?pwd=syur) and download the ICCAD2015 benchmark via [Google Drive](https://drive.google.com/file/d/1JEC17FmL2cM8BEAewENvRyG6aWxH53mX/view?usp=sharing).
-
-### Using Docker
-After downloading the docker image `macro-regulator.tar`, please execute the following commands:
-```shell
-# load our docker image
-docker load --input macro-regulator.tar
-
-# find our docker image and rename it
-docker image
-docker tag <IMAGE ID> <Your Name>/macro-regulator:latest
-
-# run a docker container
-docker run --gpus all -it -v $(pwd):/workspace <Your Name>/macro-regulator:latest bash
+Please first download the docker image from [Baidu Netdisk](https://pan.baidu.com/s/1GAu1-RVA5IYHd1LjyL2Xww?pwd=syur) or [DREAMPlace](<https://github.com/limbo018/DREAMPlace>), and compile `DREAMPlace_source` in the docker container following the below commands:
 ```
+cd DREAMPlace_source
+mkdir build
+cmake .. -DCMAKE_INSTALL_PREFIX=../../DREAMPlace
+make
+make install
+```
+
+After that, please download the ICCAD2015 benchmark via [Google Drive](https://drive.google.com/file/d/1JEC17FmL2cM8BEAewENvRyG6aWxH53mX/view?usp=sharing).
 
 ### Parameters
 + `--seed` random seed for running.
