@@ -68,3 +68,17 @@ We also provide a pre-trained model trained on `superblue1`, `superblue3`, `supe
 python main.py --benchmark_train=[] --benchmark_eval=[superblue1] --check_point_path=../policy/pretrained_model.pkl --eval_policy=True
 ```
 Script `run_test.sh` is provided for a quick start.
+
+
+## Citation
+```
+@inproceedings{macro-regulator,
+    author = {Ke Xue, Ruo-Tong Chen, Xi Lin, Yunqi Shi, Shixiong Kai, Siyuan Xu, Chao Qian.},
+    title = {Reinforcement Learning Policy as Macro Regulator Rather than Macro Placer},
+    booktitle = {Advances in Neural Information Processing Systems 38 (NeurIPS’24)},
+    year = {2024},
+    pages = {140565--140588},
+    address={Vancouver, Canada}
+}
+```
+
