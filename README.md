@@ -33,6 +33,7 @@ Please first download the docker image from [Baidu Netdisk](https://pan.baidu.co
 ```
 cd DREAMPlace_source
 mkdir build
+cd build
 cmake .. -DCMAKE_INSTALL_PREFIX=../../DREAMPlace
 make
 make install
