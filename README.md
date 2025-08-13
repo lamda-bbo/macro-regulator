@@ -29,7 +29,11 @@ This repository contains the Python code for MaskRegulate, a reinforcement learn
 + `utils` defines some functions to be used for optimization.
   
 ## Usage
-Please first download the docker image from [Baidu Netdisk](https://pan.baidu.com/s/1GAu1-RVA5IYHd1LjyL2Xww?pwd=syur) or [DREAMPlace](<https://github.com/limbo018/DREAMPlace>), and compile `DREAMPlace_source` in the docker container following the below commands:
+Please first download the docker image from [Baidu Netdisk](https://pan.baidu.com/s/1GAu1-RVA5IYHd1LjyL2Xww?pwd=syur) or pull it from the cloud [duketomlist/macro-regulator](https://hub.docker.com/r/duketomlist/macro-regulator).
+```
+docker pull duketomlist/macro-regulator:cuda
+```
+Then, please compile `DREAMPlace_source` in the docker container following the below commands:
 ```
 cd DREAMPlace_source
 mkdir build
